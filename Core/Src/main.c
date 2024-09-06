@@ -51,11 +51,11 @@
 
 
 	//Banderas para Push Botton
-	bool Bandera1 = false;
-	bool Bandera2 = false;
-	bool Bandera3 = false;
+	bool Bandera1 = false;// PARA BOTON 1
+	bool Bandera2 = false;// PARA BOTON 2
+	bool Bandera3 = false;// PARA BOTON 3
 
-	bool FLAG = false;
+	bool FLAG = false;// PARA FIN DE PARTIDA
 
 /* USER CODE END PV */
 
@@ -63,9 +63,9 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-void Tab_Swithc(void);
-void Semaforo(void);
-void BTN(void);
+void Tab_Swithc(void);// Tabla de 16 Led para contadores
+void Semaforo(void);// Semaforo por un led RGB
+void BTN(void);// lECTURA Y ACCION DE LOS BOTONES DE JUGADORES
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -110,9 +110,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  Semaforo();
+	  Semaforo();// INICIA SEMAFORO
 
-	  while(FLAG){
+	  while(FLAG){// INICIA JUEGO
 	  BTN();// Botones de Players
 	  Tab_Swithc();// Contador con mux
 	  }
@@ -226,7 +226,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+// Rutinas propias
 	Semaforo(){
 	if (HAL_GPIO_ReadPin(GPIOC, BTN3_Pin) == GPIO_PIN_RESET) { /// Se dectecta que se presiono boton pull up estado 0
 
@@ -289,7 +289,7 @@ static void MX_GPIO_Init(void)
 				  }
 			  }
 		  }
-
+		// Siguiente apartado determina ganador, y permite una nueva partida
 	  if (Player1 > 8){
 		  HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 0);// Se apagan las led del contador
 		  HAL_GPIO_WritePin(Winner1_GPIO_Port, Winner1_Pin, 1);// Se prender el led ganador
@@ -332,12 +332,12 @@ static void MX_GPIO_Init(void)
 
 
 	}
-
+	// Tabla de mux para los 16 leds, para determinar que leds se prenden. 
 	Tab_Swithc(){
-
+		// Para jugador 1
 		switch (Player1) {
 		        case 1:
-		        	HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+		        	HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1); // 0000_0001
 		        	HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -345,7 +345,7 @@ static void MX_GPIO_Init(void)
 		            break;
 
 		        case 2:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0000_0010
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -353,7 +353,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 		        case 3:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0000_0100
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -361,7 +361,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 		        case 4:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0000_1000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -369,7 +369,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 		        case 5:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0001_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -377,7 +377,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 		        case 6:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0010_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -385,7 +385,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 		        case 7:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0100_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -393,7 +393,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 		        case 8:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 1000_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -401,16 +401,16 @@ static void MX_GPIO_Init(void)
 					break;
 
 		        default:
-		        	HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 0);
+		        	HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 0);// 0000_0000
 
 		    }
 
 		HAL_Delay(time_table);
 
-
+		// Para jugador 2
 		switch (Player2) {
 				case 1:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0000_0001
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -418,7 +418,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				case 2:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0000_0010
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -426,7 +426,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				case 3:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0000_0100
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -434,7 +434,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				case 4:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0000_1000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 0);
@@ -442,7 +442,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				case 5:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0001_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -450,7 +450,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				case 6:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0010_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 0);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -458,7 +458,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				case 7:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 0100_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 0);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -466,7 +466,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				case 8:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 1);// 1000_0000
 					HAL_GPIO_WritePin(S0_GPIO_Port, S0_Pin, 1);
 					HAL_GPIO_WritePin(S1_GPIO_Port, S1_Pin, 1);
 					HAL_GPIO_WritePin(S2_GPIO_Port, S2_Pin, 1);
@@ -474,7 +474,7 @@ static void MX_GPIO_Init(void)
 					break;
 
 				default:
-					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 0);
+					HAL_GPIO_WritePin(Control_GPIO_Port, Control_Pin, 0);// 0000_0000
 
 			}
 
