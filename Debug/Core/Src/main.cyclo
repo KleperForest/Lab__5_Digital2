@@ -1,0 +1,7 @@
+../Core/Src/main.c:80:5:main	2
+../Core/Src/main.c:131:6:SystemClock_Config	3
+../Core/Src/main.c:173:13:MX_GPIO_Init	1
+../Core/Src/main.c:230:2:Semaforo	4
+../Core/Src/main.c:270:2:BTN	15
+../Core/Src/main.c:336:2:Tab_Swithc	17
+../Core/Src/main.c:495:6:Error_Handler	1
